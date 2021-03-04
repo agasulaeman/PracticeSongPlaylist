@@ -1,9 +1,5 @@
 package com.playlistSong;
 
-import com.testBank.Customer;
-
-import java.util.ArrayList;
-
 public class Song {
 
     private String songTitle;

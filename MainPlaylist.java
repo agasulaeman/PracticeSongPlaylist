@@ -1,11 +1,5 @@
-
 package com.playlistSong;
-
-import com.miniBankApplicationArrayList.Branch;
-
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ListIterator;
 import java.util.Scanner;
 
 
@@ -16,6 +10,7 @@ public class MainPlaylist {
     private static Playlist playlist = new Playlist();
     private static LinkedList<Playlist> myPlaylist = new LinkedList<>();
     private static Scanner sc = new Scanner(System.in);
+    private static LinkedList<Song> playlistSong = new LinkedList<>();
 
     public static void main(String[] args) {
         boolean quit = false;
@@ -43,7 +38,7 @@ public class MainPlaylist {
                         removeSongInYourAlbum();
                         break;
                     case 5:
-                        // addCustomerTransaction();
+                        playPrevAndNextSong();//playlist.nextPrevSong();
                         break;
                     case 6:
                         // printCustomerTransaction();
@@ -57,7 +52,9 @@ public class MainPlaylist {
                 sc.nextLine();
             }
 
+
         }
+
 
     }
 
@@ -73,6 +70,31 @@ public class MainPlaylist {
         System.out.println("\t 7 - To print choice options."); // still in my mind (Sunday 14 Feb 2021)
         System.out.println("\t 8 - To quit the application");// still in my mind (Sunday 14 Feb 2021)
     }
+
+    public static void nextInstruction() {
+        System.out.println("\t=Next / Previous Song Menu:= ");
+        System.out.println("\nPress ");
+        System.out.println("\t 1 - Next Song.");
+        System.out.println("\t 2 - Previous song.");
+        System.out.println("\t 3 - Back to Playlist Menu.");
+        System.out.println("\t 4 - Back to Main Menu.");
+    }
+
+    public static void nextPrevSong() {
+        int choice;
+        boolean quit = false;
+        while (!quit) {
+            boolean nextStep = sc.hasNext();
+            if (nextStep) {
+                choice = sc.nextInt();
+                switch (choice) {
+                    case 1:
+
+                }
+            }
+        }
+    }
+
 
     public static void addAlbum() {
         System.out.println(" Please enter your Album Name : ");
@@ -103,6 +125,25 @@ public class MainPlaylist {
         }
     }
 
+    public static void playNextPrevSong() {
+        System.out.println(" please insert album in your playlist ");
+        String albumName = sc.nextLine();
+        Album existAlbum = playlist.queryAlbum(albumName);
+        if (existAlbum == null) {
+            System.out.println(" Album " + albumName + " does not exists");
+        } else {
+            existAlbum.printSongListyourAlbum();
+
+            boolean quit = false;
+            int option = 0;
+            printInstructions();
+            while (!quit) {
+         //       playlist.nextPrevSong(albumName);
+            }
+        }
+    }
+
+
     public static void removeSongInYourAlbum() {
         System.out.println(" please enter the album");
         String albumName = sc.nextLine();
@@ -118,59 +159,30 @@ public class MainPlaylist {
             System.out.println(" the Album and Song not found ");
         }
     }
-}
-    /*
-System.out.println(" enter your album in your playlist \t and enter your song  \t and enter the duration");
-        String albumCheck = sc.nextLine();
-        *//*
 
-        System.out.println(" Please enter your song name : ");
-        album.addSong(sc.nextLine(), sc.nextDouble());
+    public static void playPrevAndNextSong() {
+        listYourAlbum();
+        System.out.println("Please input your album : ");
+        String findAlbum = sc.nextLine();
+        Album existAlbum = playlist.queryAlbum(findAlbum);
+        if (existAlbum == null) {
+            System.out.println(" Album " + findAlbum + " does not exists");
+        } else if (existAlbum != null) {
+            existAlbum.printSongListyourAlbum();
+//            ListIterator<Song> listIterator = playlist.lis
+            boolean quit = false;
+            int choice = 0;
+            nextInstruction();
+            while (!quit) {
+               /* System.out.println("Enter your choice: 1 to 4 show instructions)");
+                if (sc.hasNextInt()) {
+                    choice = sc.nextInt();
+                    sc.nextLine();*/
+                playlist.nextPrevSong(choice);
+                }
+                //if (playlist.findAlbum());
 
-
-    }
-
-    public static  void printListSong (){
-        System.out.println("enter the album name");
-       // album.querySong(sc.nextLine());
-    }
-
-    public static void addSongtoAlbum() {
-        System.out.println(" enter your album in your playlist ");
-        playlist.addAlbum(sc.nextLine());
-        System.out.println(" enter your tracck number");
-        int index = sc.nextInt();
-        System.out.println(" Please enter your song name : ");
-        String songTitle = sc.nextLine();
-        System.out.println(" Duration the song : ");
-        Double durationSong = sc.nextDouble();
-        Song song = new Song(songTitle, durationSong);
-//        album.addNewSong();
-
-
-    }
-
-
-*/
-/*
-    private static boolean addAlbum(LinkedList<String> albumList, String newAlbum) {
-        ListIterator<String> albumListIterator = albumList.listIterator();
-        while (albumListIterator.hasNext()) {
-            int compare = albumListIterator.next().compareTo(newAlbum);
-            if (compare == 0) {
-                System.out.println(" the album " + newAlbum + "already exists");
-                return false;
-            } else if (compare > 0) {
-                albumListIterator.previous();
-                albumListIterator.add(newAlbum);
-                return true;
-            } else if (compare < 0) {
             }
         }
-        albumListIterator.add(newAlbum);
-        return true;
     }
-    */
-
-
 

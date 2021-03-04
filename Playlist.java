@@ -1,10 +1,14 @@
 package com.playlistSong;
 
+import com.SolvingAnotherPeople.Main;
 import java.util.*;
+import static com.playlistSong.MainPlaylist.nextInstruction;
 
 public class Playlist {
 
     public ArrayList<Album> albumArrayList = new ArrayList<>();
+    private LinkedList<Song> playlist = new LinkedList();
+    private LinkedList<Album> albumPlaylist = new LinkedList<>();
 
     public void findAlbums() {
         LinkedList<String> tempLinkList = new LinkedList<>();
@@ -76,88 +80,57 @@ public class Playlist {
     }
 
 
-}
+    public void nextPrevSong(int choice) {
+        ListIterator<Song> listIterator = playlist.listIterator();
+        ListIterator<Album> albumListIterator = albumPlaylist.listIterator();
+        boolean quit = false;
+        while (!quit) {
+            nextInstruction();
+            boolean isAnInt = Main.scanner.hasNextInt();
+            if (isAnInt) {
+                choice = Main.scanner.nextInt();
+                Main.scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        if (playlist.isEmpty()) {
+                            System.out.println("No songs on playlist");
+                        } else {
+                            if (albumListIterator.hasNext()) {
+                                System.out.println("Now playing " + albumListIterator.next());
+                            } else {
+                                System.out.println("Reached end of list");
+                            }
+                        }
+                        break;
+
+                    case 2:
+                        if (playlist.isEmpty()) {
+                            System.out.println("No songs on playlist");
+                        } else {
+                            if (albumListIterator.hasPrevious()) {
+                                System.out.println("Now playing " + albumListIterator.previous());
+
+                            } else {
+                                System.out.println("Reached beginning of list");
+                            }
+                        }
+                        break;
+                    case 3:
+                        quit = true;
+                        break;
+                    case 4:
+                        MainPlaylist.printInstructions();
+                        quit = true;
+                        break;
+                    default:
+                        System.out.println("Invalid key selection");
+                        break;
 
 
-//    public void addNewSongtoYourAlbum( ){//String branchName,String custName,Double transactionAmmount) {
-//        //bank = new A
-//        com.miniBankApplicationArrayList.Branch branch = new Branch(branchName);
-//        Customer cust = new Customer(custName, transactionAmmount);
-//
-//        if (findCustName(custName) < 0 && (transactionAmmount > 1000 && (findBranchName(branchName))>0)) {
-//            branchCustomer.add(cust);
-//            branches.add(branch);
-//            System.out.println(custName + " your data has been insert successfull");
-//        } else if (findCustName(custName) > 0 && transactionAmmount <= 1000 && findBranchName(branchName) > 0) {
-//            System.out.println("the cust " + cust.getCustName() + " not in your systems");
-//        }
-//
-//    }
-
-
-/*
-    public Playlist(String playlistName) {
-        this.playlistName = playlistName;
-        this.albumArrayList = new ArrayList<Album>();
-    }
-
-    public ArrayList<Album> getAlbumArrayList() {
-        return albumArrayList;
-    }
-
-    public Playlist setAlbumArrayList(ArrayList<Album> albumArrayList) {
-        this.albumArrayList = albumArrayList;
-        return this;
-    }
-
-    public String getPlaylistName() {
-        return playlistName;
-    }
-
-    public Playlist setPlaylistName(String playlistName) {
-        this.playlistName = playlistName;
-        return this;
-    }
-
-    private Album findAlbum(String albumName) {
-        for (Album checkAlbum : this.albumArrayList) {
-            if (checkAlbum.getAlbumName().equals(albumName)) {
-                return checkAlbum;
+                }
             }
         }
-        return null;
-    }
 
-    public boolean addAlbum(String albumName) {
-        if (findAlbum(albumName) == null) {
-            this.albumArrayList.add(new Album(albumName));
-            System.out.println(" your album : " +albumName + " has been insert in to playlist " );
-            return true;
-        }
-        System.out.println(" your album : " +albumName + " already exists in your playlist ");
-        return false;
-    }
-
-
-
-
-    private int findAlbumList(String albumName) {
-        for (int i = 0; i < albumArrayList.size(); i++) {
-            Album album = this.albumArrayList.get(i);
-            if (album.getAlbumName().equals(albumName)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public Album queryAlbumList(String name) {
-        int position = findAlbumList(name);
-        if (position >= 0) {
-            return this.albumArrayList.get(position);
-        }
-        return null;
     }
 
 }
-*/
